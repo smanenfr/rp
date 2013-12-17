@@ -17,7 +17,7 @@ current = proposals(ids(id), :);
 
 %% Display results:
 clf;
-imshow(I);
+imshow(I, 'Border', 'tight');
 hold on;
 plotBoxes(selections, 'b', [], '-');
 plotBoxes(current, 'y', [], '-');

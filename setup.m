@@ -1,14 +1,16 @@
 %% Compile RP mex file
 clc
-cd('mex')
-if(exist('RP_mex.mexa64', 'file') == 0)
-  delete('RP_mex.mexa64');
+mexDir = 'cmex';
+if(exist(mexDir, 'dir') ~= 0)
+  rmdir(mexDir, 's');
 end
+mkdir(mexDir)
+cd(mexDir);
 disp('Compiling RP mex file...');
 % Release:
-mex ../src/RP_mex.cpp ../src/stopwatch/Stopwatch.cpp -I/usr/include/opencv -L/usr/lib -lcv -lhighgui -lcxcore -lml -lcvaux
+mex ../src/RP_mex.cpp ../src/stopwatch/Stopwatch.cpp
 % Debug:
-% mex -g ../src/RP_mex.cpp ../src/stopwatch/Stopwatch.cpp -I/usr/include/opencv -L/usr/lib -lcv -lhighgui -lcxcore -lml -lcvaux
+% mex -g ../src/RP_mex.cpp ../src/stopwatch/Stopwatch.cpp
 cd('../');
 
 %% Generate configuration files:

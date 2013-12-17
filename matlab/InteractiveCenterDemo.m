@@ -21,7 +21,7 @@ function InteractiveCenterDemo(configFile)
   %% Display
   h = figure(1);
   clf;
-  imshow(I);
+  imshow(I, 'Border', 'tight');
   hold on;
   disp('Move the cursor close to the center of an object to see if it has been found. The closest proposal is shown in yellow.');
   disp('Left click to select an object and right click to go to next image...');

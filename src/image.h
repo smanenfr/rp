@@ -5,8 +5,6 @@
 #include <assert.h>
 #include <string>
 #include <math.h>
-#include <cxcore.h>
-#include <highgui.h>
 #include "params.h"
 
 #define MIN3(x,y,z)  ((y) <= (z) ? \
@@ -26,7 +24,7 @@ class Image{
 
   public:
 
-    Image(const std::string& filename);
+    //Image(const std::string& filename);//Removed to avoid opencv dependencies
 
     Image(const std::vector<uint> dims, const uint val, const Colorspace colorspace);
 
@@ -307,46 +305,46 @@ Image Image::convertToColorspace(const Colorspace colorspace) const{
   return convI;
 }
 
-Image::Image(const std::string& filename){
-
-  //Load image:
-  cv::Mat cvI;
-  cvI = cv::imread(filename, CV_LOAD_IMAGE_COLOR);
-  if(!cvI.data )
-  {
-    std::cout <<  "Could not open or find the image" << std::endl ;
-    exit(-1);
-  }
-
-  //Adapt to class
-  h_=cvI.rows;
-  assert(h_>0);
-
-  w_=cvI.cols;
-  assert(w_>0);
-
-  c_=3; //We know this because we specified: CV_LOAD_IMAGE_COLOR
-
-  imgSize_= std::vector<uint>( 3, 0);
-  imgSize_.at(0) = h_; imgSize_.at(1) = w_; imgSize_.at(2) = c_;
-
-  colorspace_=RGB; //We assume image was saved in RGB space
-
-  I_.resize(h_);
-  uint8_t* pixelPtr = (uint8_t*)cvI.data;
-  uint r = 0, g = 0, b = 0;
-  for(uint i=0; i<h_; i++){
-    I_.at(i).resize(w_);
-    for(uint j=0; j<w_; j++){
-      I_.at(i).at(j).resize(c_);
-      for(uint k=0; k<c_; k++){
-        I_.at(i).at(j).at(2) = pixelPtr[i*w_*3 + j*3]; // B
-        I_.at(i).at(j).at(1) = pixelPtr[i*w_*3 + j*3 + 1]; // G
-        I_.at(i).at(j).at(0) = pixelPtr[i*w_*3 + j*3 + 2]; // R
-      }
-    }
-  }
-}
+//Image::Image(const std::string& filename){
+//
+//  //Load image:
+//  cv::Mat cvI;
+//  cvI = cv::imread(filename, CV_LOAD_IMAGE_COLOR);
+//  if(!cvI.data )
+//  {
+//    std::cout <<  "Could not open or find the image" << std::endl ;
+//    exit(-1);
+//  }
+//
+//  //Adapt to class
+//  h_=cvI.rows;
+//  assert(h_>0);
+//
+//  w_=cvI.cols;
+//  assert(w_>0);
+//
+//  c_=3; //We know this because we specified: CV_LOAD_IMAGE_COLOR
+//
+//  imgSize_= std::vector<uint>( 3, 0);
+//  imgSize_.at(0) = h_; imgSize_.at(1) = w_; imgSize_.at(2) = c_;
+//
+//  colorspace_=RGB; //We assume image was saved in RGB space
+//
+//  I_.resize(h_);
+//  uint8_t* pixelPtr = (uint8_t*)cvI.data;
+//  uint r = 0, g = 0, b = 0;
+//  for(uint i=0; i<h_; i++){
+//    I_.at(i).resize(w_);
+//    for(uint j=0; j<w_; j++){
+//      I_.at(i).at(j).resize(c_);
+//      for(uint k=0; k<c_; k++){
+//        I_.at(i).at(j).at(2) = pixelPtr[i*w_*3 + j*3]; // B
+//        I_.at(i).at(j).at(1) = pixelPtr[i*w_*3 + j*3 + 1]; // G
+//        I_.at(i).at(j).at(0) = pixelPtr[i*w_*3 + j*3 + 2]; // R
+//      }
+//    }
+//  }
+//}
 
 
 #endif

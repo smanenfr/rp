@@ -1,6 +1,6 @@
 %% Paths
 addpath('matlab');
-addpath('mex');
+addpath('cmex');
 
 %% Global variables (needed for callbacks)
 global h imgId files imgDir configFile;
