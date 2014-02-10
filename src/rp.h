@@ -66,19 +66,22 @@ std::vector<BBox> RP(const Image& rgbI, const Params& params){
 
   uint nextSp=0, oSp=0;
   uint n=0, nSpsInGroup=0;
-  double E0=0.0, E=0.0, nextS=0.0, Ea=0.0;
+  double E0=0.0, E=0.0, nextS=0.0, Ea=0.0, groupA_double=0.0;
   uint groupA=0;
   uint xmin=0, ymin=0, xmax=0, ymax=0;
   IntTree T(nSps);
   for( uint k=0; k<nProposals; k++){
+
     nextSp=floor((rand()%nSps)+0.5);//Round
-    assert(nextSp<nSps && "Bad seed");
+
+    assert(nextSp>=0 && nextSp<nSps && "Bad seed");
     assert(k < spGroups.size());
     assert(nextSp < spGroups.at(k).size());
     spGroups.at(k).at(nextSp)=1;
 
     nSpsInGroup=1;
-    groupA=segImg.normArea16b(nextSp);
+    groupA_double=segImg.normArea(nextSp);
+    groupA = floor(groupA_double*65535+0.5);
 
     if(nSpsInGroup==nSps)
       continue;
@@ -127,12 +130,16 @@ std::vector<BBox> RP(const Image& rgbI, const Params& params){
       }else{
         assert(k < spGroups.size());
         assert(nextSp < spGroups.at(k).size());
+
         spGroups.at(k).at(nextSp)=1;
-        groupA+=segImg.normArea16b(nextSp);
         nSpsInGroup++;
 
-        if(nSpsInGroup==nSps)
+        if(nSpsInGroup==nSps) {
           break;
+        }
+
+        groupA_double += segImg.normArea(nextSp);
+        groupA = floor(groupA_double*65535+0.5);
 
         std::vector<std::pair<uint, double> > N(graph.getNOfNode(nextSp));
 
