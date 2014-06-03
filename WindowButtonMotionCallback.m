@@ -16,7 +16,7 @@ d = sqrt((pcs(:, 1) - j) .^ 2 + (pcs(:, 2) - i) .^ 2);
 current = proposals(ids(id), :);
 
 %% Display results:
-clf;
+%clf;
 imshow(I, 'Border', 'tight');
 hold on;
 plotBoxes(selections, 'b', [], '-');

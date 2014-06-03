@@ -20,7 +20,8 @@ params.segmentations{1}.superpixels.sigma = 0.8;
 params.segmentations{1}.superpixels.c = 100;
 params.segmentations{1}.superpixels.min_size = 100;
 % --> Parameters trained from VOC07:
-%   --> Feature weights:params.segmentations{1}.simWeights.wBias = 3.0017;
+%   --> Feature weights:
+params.segmentations{1}.simWeights.wBias = 3.0017;
 params.segmentations{1}.simWeights.wCommonBorder = -1.0029;
 params.segmentations{1}.simWeights.wLABColorHist = -2.6864;
 params.segmentations{1}.simWeights.wSizePer = -2.3655;
