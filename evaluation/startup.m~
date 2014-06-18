@@ -1,0 +1,5 @@
+%TODO: Delete this for release
+
+addpath('/home/smanenfr');
+addpath(genpath('/scratch_net/troubadour/smanenfr/code_in_scratch/rp/'));
+addpath()
