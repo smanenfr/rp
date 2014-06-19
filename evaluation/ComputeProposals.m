@@ -13,30 +13,23 @@ function ComputeProposals(parsedVOCDir, proposalsDir, configFile, evaluationPara
   mkdir(proposalsDir);
   
   configParams = LoadConfigFile(configFile);
-  configParams.approxFinalNBoxes = 100000; %To increase number of unique windows and get the final part of the curve.
+  configParams.approxFinalNBoxes = 100000; %To increase number of unique windows and get the final part of the curve up to 10000.
   configParams.evaluationParams = evaluationParams;
   
   imgs = {};
   gts = {};
+  % It is recommended to parallelize this loop to process and evaluate the
+  % images in parallel:
   for k = 1 : nImages
     I = load([parsedVOCDir '/rgb_' num2str(k) '.mat']);
     imgs{end + 1} = I.iData.RGB;
     gt = load([parsedVOCDir '/gt_' num2str(k) '.mat']);
     gts{end + 1} = gt.gt;
-  end
-  
-  addpath('~');
-  addpath(genpath('/scratch/smanenfr/code_in_scratch/sm_toolbox/matlab/mg/matlabtools/'));
-  sm_par_config();
-  nWorkers = 100;
-  home = pwd;
-  assert(strcmp(home(1 : 12), '/scratch_net') ~= 0);
-  outs = par_map('c', @RPandEval, {configParams}, {imgs, gts}, struct('memory', 5e9, 'time', 3599, 'workers', nWorkers));%, 'engine', 'local')); 
     
-  for k = 1 : nImages
-    results = outs{k};
+    results = RPandEval(configParams, imgs{end}, gts{end});
+    
     save([proposalsDir '/res_' num2str(k) '.mat'], 'results');
-  end 
+  end
 end
 
 function out = RPandEval(configParams, I, gt)

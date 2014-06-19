@@ -8,14 +8,16 @@ addpath(genpath('../'));
 
 %% Params:
 
-exp = 'ALL_4_SEGS'; % 'JUST_LAB_SEG', 'ALL_4_SEGS'
+exp = 'ALL_4_SEGS'; % Select which configuration to use: 'JUST_LAB_SEG', 'ALL_4_SEGS'
 calcInLog=false; %false (for linear vus), true (for logarithmic vus)
 
-originalVOCDirectory='/scratch_net/troubadour/smanenfr/datasets/VOC2007/Raw/VOCdevkit_test'; %Change this
-imgListDir= [originalVOCDirectory '/VOC2007/ImageSets/Layout/complete_test_set.txt']; %Change this
-parsedVOCDir = '/scratch/smanenfr/temp/VOC2007/test';
+%Change these paths:
+originalVOCDirectory = TOFILL; %Top directory of VOC 2007 dataset
+parsedVOCDir = TOFILL; %Directory where parsed VOC07 will be stored
 
 %VOC params:
+
+imgListDir= 'complete_test_set.txt'; %File with ids of the 4952 images of the test set
 
 params.includeBoxesWithClasses={'aeroplane', 'bicycle','boat','bottle','bus','chair','diningtable','horse','motorbike','person','pottedplant','sofa','train','tvmonitor'};
 params.omitImagesWithClasses={'bird','car','cat','cow','dog','sheep'};

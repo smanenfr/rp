@@ -26,6 +26,23 @@ An interactive demo application for the method can be easily executed with the f
 
 The demo proposes windows for a set of images and allows the user to interactively explore the set of windows to get a feeling of the quality of the proposals. To do so, the demo shows that proposal whose center is the closest to the cursor of the user. That is, to see if the object hs been found the user should try to position the mouse close to the center of the "bounding box" of the object.
 
+Frequently Asked Questions (FAQ):
+---------------------------------
+
+- How can I get more proposals? 
+
+  The method has not been designed to get a specific number of proposals. Given the nature of the algorithm, the number of proposals can be increased by using more superpixels (i.e. lowering .superpixels.min_size in the config file) or by using more segmentations (config/GenerateRPConfig_4segs.m uses 4 segmentations but more can be included).
+
+- How can I evaluate the method on VOC 2007?
+
+  An evaluation script is included in the release to reproduce the results of the paper. You can configure the paths in the script 'evaluation/evalVOC2007.m' and execute it to obtain the VUS and the curve corresponding to Fig6c in the paper. You will need to download the test set of VOC2007 and include the path in 'evaluation/evalVOC2007.m'. Note that there is a part in evaluation/ComputeProposals.m that can be parallelized to speed up the evaluation.
+
+  Some details that are included in the evaluation are:
+
+    a. As aforementioned, the method will return a number N of proposals depending on the number of superpixels. If the evaluation is up to M proposals and M>N, then only the N returned proposals are used for the evaluation. 
+
+    b. Our method independently generates proposals, some of which might be repeated, and near-duplicates are removed. The number of independently generated proposals is proportional to approxNProposals, which is 100,000 in our experiments. Naturally, the more approxNProposals that we generate, the slower the method becomes. 
+
 Main Functions
 --------------
 

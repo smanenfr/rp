@@ -54,7 +54,7 @@ function proposals = RP(rgbI, params)
   proposals = proposals';
   
   %% Remove near duplicates:
-  assert(params.q > 0);  
+  assert(params.q > 0)
   qBoxes = round(proposals(:, 1 : 4) / params.q);
   [~, ids] = unique(qBoxes, 'rows', 'first');
   [ids] = sort(ids, 'ascend');

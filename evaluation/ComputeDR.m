@@ -1,15 +1,11 @@
 function drs=ComputeDR(dets, gts, params)
 assert(size(params.nWindows,1)==1 && size(params.ious,1)==1);
 
-scoresAvailable=(size(dets,2)>4);
-
 drs=zeros(length(params.nWindows),length(params.ious));
 
 for j=1:length(params.ious)
   totalNCovered=0;
-  totalNObjects=0;
-  
-  assert(issorted(flipdim(dets(:,5),1)));
+  totalNObjects=0;  
   nDets=size(dets,1);
   nGTBoxes=size(gts.gt.boxes,1);
   assert(nDets>0);
