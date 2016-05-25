@@ -8,7 +8,7 @@ global h imgId files imgDir configFile;
 %% Input
 imgDir = 'test_images';
 imgId = 1;
-configFile = 'config/rp.mat'; 
+configFile = fullfile('config', 'rp.mat');
 %'config/rp_4segs.mat' to sample from 4 segmentations (slower but higher recall)
 %'config/rp.mat' to sample from 1 segmentations (faster but lower recall)
 

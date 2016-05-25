@@ -7,15 +7,12 @@ end
 mkdir(mexDir)
 cd(mexDir);
 disp('Compiling RP mex file...');
-% Release:
-mex ../src/RP_mex.cpp ../src/stopwatch/Stopwatch.cpp
-% Debug:
-% mex -g ../src/RP_mex.cpp ../src/stopwatch/Stopwatch.cpp
-cd('../');
+mex(fullfile('..', 'src', 'RP_mex.cpp'),  fullfile('..', 'src', 'stopwatch', 'Stopwatch.cpp'))
+cd('..');
 
 %% Generate configuration files:
 cd('config')
 disp('Generating configuration files...');
 GenerateRPConfig();
 GenerateRPConfig_4segs();
-cd('../');
+cd('..');

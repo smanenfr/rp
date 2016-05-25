@@ -28,7 +28,7 @@ params.segmentations{1}.simWeights.wSizePer = -2.3655;
 %   --> Size term alpha, as explained in the paper sec. 4.2. 
 %       It is quantized to contain exactly 2^16 elements for speed
 %       purposes.
-params.segmentations{1}.alpha = dlmread('alpha/alpha_voc07.dat');
+params.segmentations{1}.alpha = dlmread(fullfile('alpha', 'alpha_voc07.dat'));
 params.segmentations{1}.verbose = false;                            %Set to true to display more information during execution
 
 % Opponent
